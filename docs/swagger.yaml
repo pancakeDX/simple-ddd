@@ -1,0 +1,8 @@
+basePath: /
+info:
+  contact: {}
+  description: Simple DDD
+  title: Simple DDD
+  version: 0.0.1
+paths: {}
+swagger: "2.0"
