@@ -8,7 +8,7 @@ func NewService(repo Repository) *Service {
 	return &Service{repo: repo}
 }
 
-func (s *Service) CreateUser(id, name, email string) (*User, error) {
+func (s *Service) CreateUser(name, email string) (*User, error) {
 	user, err := NewUser(name, email)
 	if err != nil {
 		return nil, err

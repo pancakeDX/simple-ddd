@@ -5,9 +5,9 @@ import (
 )
 
 type User struct {
-	ID    int
-	Name  string
-	Email string
+	ID    int    `json:"id" example:"1"`
+	Name  string `json:"name" example:"John Doe"`
+	Email string `json:"email" example:"test@email.com"`
 }
 
 func NewUser(name, email string) (*User, error) {

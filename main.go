@@ -8,6 +8,8 @@ import (
 	interfaceUser "simple-ddd/interface/user"
 	"syscall"
 
+	_ "simple-ddd/docs"
+
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/log"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -15,10 +17,10 @@ import (
 	"github.com/gofiber/swagger"
 )
 
-//	@title			Simple DDD
-//	@version		0.0.1
-//	@description	Simple DDD
-//	@BasePath		/
+// @title			Simple DDD
+// @version		0.0.1
+// @description	Simple DDD
+// @BasePath		/
 func main() {
 	app := fiber.New()
 	app.Use(cors.New())

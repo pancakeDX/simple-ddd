@@ -19,23 +19,37 @@ func (h *Handler) RegisterRoutes(app fiber.Router) {
 	app.Get("/users", h.GetAllUsers)
 }
 
+// CreateUser
+//
+//	@Summary		CreateUser
+//	@Description	CreateUser
+//	@Tags			user
+//	@Param			RequestBody	body		CreateUserRequest	true	"parameters for create user"
+//	@Success		200			{object}	CreateUserResponse
+//	@Failure		400			{object}	response.ErrorResponse
+//	@Failure		500			{object}	response.ErrorResponse
+//	@Router			/v1/users [POST]
 func (h *Handler) CreateUser(c *fiber.Ctx) error {
-	type Request struct {
-		ID    string `json:"id"`
-		Name  string `json:"name"`
-		Email string `json:"email"`
-	}
-	var req Request
+	var req CreateUserRequest
 	if err := c.BodyParser(&req); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
 	}
-	user, err := h.service.CreateUser(req.ID, req.Name, req.Email)
+	user, err := h.service.CreateUser(req.Name, req.Email)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
 	}
 	return c.JSON(user)
 }
 
+// GetUsers
+//
+//	@Summary		GetUsers
+//	@Description	GetUsers
+//	@Tags			user
+//	@Success		200	{object}	GetUsersResponse
+//	@Failure		400	{object}	response.ErrorResponse
+//	@Failure		500	{object}	response.ErrorResponse
+//	@Router			/v1/users [GET]
 func (h *Handler) GetAllUsers(c *fiber.Ctx) error {
 	users, err := h.service.GetAllUsers()
 	if err != nil {

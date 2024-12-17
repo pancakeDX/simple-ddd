@@ -1,8 +1,103 @@
 basePath: /
+definitions:
+  response.ErrorResponse:
+    properties:
+      error:
+        type: string
+      status:
+        type: integer
+    type: object
+  user.CreateUserRequest:
+    properties:
+      email:
+        example: test@email.com
+        type: string
+      name:
+        example: John Doe
+        type: string
+    type: object
+  user.CreateUserResponse:
+    properties:
+      email:
+        example: test@email.com
+        type: string
+      id:
+        example: 1
+        type: integer
+      name:
+        example: John Doe
+        type: string
+    type: object
+  user.GetUsersResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/user.User'
+        type: array
+      message:
+        example: ok
+        type: string
+    type: object
+  user.User:
+    properties:
+      email:
+        example: test@email.com
+        type: string
+      id:
+        example: 1
+        type: integer
+      name:
+        example: John Doe
+        type: string
+    type: object
 info:
   contact: {}
   description: Simple DDD
   title: Simple DDD
   version: 0.0.1
-paths: {}
+paths:
+  /v1/users:
+    get:
+      description: GetUsers
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.GetUsersResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: GetUsers
+      tags:
+      - user
+    post:
+      description: CreateUser
+      parameters:
+      - description: parameters for create user
+        in: body
+        name: RequestBody
+        required: true
+        schema:
+          $ref: '#/definitions/user.CreateUserRequest'
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/user.CreateUserResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: CreateUser
+      tags:
+      - user
 swagger: "2.0"
